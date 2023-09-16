@@ -1,0 +1,24 @@
+.signup {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-form {
+  width: 400px;
+}
+
+.ant-form-item-explain-error {
+  float: left;
+}
+
+.signup-form-button {
+  width: 100%;
+}
+
+.failed-signup {
+  font-size: 14px;
+  color: red;
+}
