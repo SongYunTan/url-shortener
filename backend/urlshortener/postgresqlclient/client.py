@@ -19,7 +19,7 @@ class PostgreSQLClient:
 		self.cursor = self.connector.cursor()
 
 		self.prepared_statements = {}
-		self.prepared_statements["add_user"] = "INSERT INTO users (username, salt, passhash) VALUES (%s, %s, %s);"
+		self.prepared_statements["add_user"] = "INSERT INTO users (username, salt, passhash) VALUES (%s, %s, %s)"
 		self.prepared_statements["get_user_by_username"] = "SELECT * FROM users WHERE username = %s"
 
 	def add_user(self, user: models.User) -> Tuple[int, bool]:
@@ -39,7 +39,7 @@ class PostgreSQLClient:
 			self.cursor.execute(self.prepared_statements["get_user_by_username"], (username,))
 
 			for row in self.cursor:
-				user = models.User(row[0], row[1], row[2], row[3])
+				user = models.User(row[1], row[2], row[3], row[0])
 				break
 			else:
 				return None, False
