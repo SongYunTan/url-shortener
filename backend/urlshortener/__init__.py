@@ -10,3 +10,5 @@ def create_app():
     return urlshortener_app
 
 app = Blueprint('backend', __name__, url_prefix='/')
+
+import urlshortener.routes.account

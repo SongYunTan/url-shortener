@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Input, Form, Checkbox } from 'antd';
 import './Login.css';
+import axios from 'axios';
 
 const Login = () => {
   const [err, setErr] = useState('');
 
   let navigate = useNavigate();
   const routeChange = () => {
-    let path = '/shortenURL';
+    let path = '/';
     navigate(path);
   };
 
@@ -16,6 +17,31 @@ const Login = () => {
     setErr('');
     console.log(values.username);
     console.log(values.password);
+
+		const username = values.username;
+    const password = values.password;
+
+    try {
+      await axios
+        .post(
+          'http://127.0.0.1:5000/login',
+          { username, password },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Accept: 'application/json',
+            },
+          }
+        )
+        .then((response) => {
+          console.log(JSON.stringify(response.data, null, 4));
+          sessionStorage.setItem('id', response.data['id']);
+          sessionStorage.setItem('username', username);
+          routeChange();
+        });
+    } catch (err) {
+      setErr(err.message);
+    }
   };
 
   return (
