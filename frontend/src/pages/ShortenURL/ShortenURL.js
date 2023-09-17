@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import URLTable from '../../components/URLTable';
 import URLForm from '../../components/URLForm';
+import NavBar from '../../components/NavBar/NavBar';
 import './ShortenURL.css';
 
 const ShortenURL = () => {
@@ -8,8 +9,11 @@ const ShortenURL = () => {
 
   return (
     <div className="shortenURL">
-      <URLForm data={data} setData={setData} />
-      <URLTable data={data} setData={setData} />
+      <NavBar />
+      <div className="shortenURL-container">
+        <URLForm data={data} setData={setData} />
+        <URLTable data={data} setData={setData} />
+      </div>
     </div>
   );
 };

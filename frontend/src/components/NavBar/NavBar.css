@@ -1,0 +1,22 @@
+.navBar {
+  height: 7%;
+  background-color: #3875f6;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 7%;
+  padding-right: 7%;
+}
+
+.navBar-logo {
+  max-height: 90%;
+}
+
+.login-button,
+.logout-button {
+  color: white;
+  font-weight: 550;
+  font-size: 20px;
+  text-decoration: none;
+}
