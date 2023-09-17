@@ -28,6 +28,24 @@ def get_saved_urls():
 	return json.dumps(result)
 
 
+@app.route('/delete-url', methods=['POST'])
+def delete_url():
+	data = request.get_json()
+	logger.info(f"[delete-url] {data}")
+	url_id = data.get("urlID", "")
+	if not url_id:
+		return abort(400, "Missing fields")
+
+	ok = postgresqlclient.c.delete_url(url_id)
+	if not ok:
+		return abort(500, "Unable to delete URL")
+
+	result = {
+		"urlID": url_id
+	}
+	return json.dumps(result)
+
+
 @app.route('/shortened-url', methods=['POST'])
 def generate_shortened_url():
 	data = request.get_json()
@@ -57,6 +75,7 @@ def generate_shortened_url():
 	logger.info(f"[shortened-url] {original_url} created")
 	result = {
 		"exists": False,
+		"id": url_id + 1,
 		"shortenedURL": shortened_url,
 	}
 	return json.dumps(result)
