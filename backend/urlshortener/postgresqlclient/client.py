@@ -22,6 +22,7 @@ class PostgreSQLClient:
 		self.prepared_statements["add_user"] = "INSERT INTO users (username, salt, passhash) VALUES (%s, %s, %s)"
 		self.prepared_statements["get_user_by_username"] = "SELECT * FROM users WHERE username = %s"
 		self.prepared_statements["add_url"] = "INSERT INTO urls (user_id, original_url, shortened_url) VALUES (%s, %s, %s)"
+		self.prepared_statements["get_url_by_id"] = "SELECT * FROM urls WHERE id = %s AND deleted_at IS NULL"
 		self.prepared_statements["delete_url"] = "UPDATE urls SET deleted_at=CURRENT_TIMESTAMP WHERE id = %s AND deleted_at IS NULL"
 		self.prepared_statements["get_shortened_url"] = "SELECT * FROM urls WHERE user_id = %s AND original_url = %s AND deleted_at IS NULL"
 		self.prepared_statements["get_saved_urls_by_id"] = "SELECT * FROM urls WHERE user_id = %s AND deleted_at IS NULL"
@@ -62,6 +63,20 @@ class PostgreSQLClient:
 
 		except psycopg2.Error as err:
 			return False
+
+	def get_url_by_id(self, url_id: str):
+		try:
+			self.cursor.execute(self.prepared_statements["get_url_by_id"], (url_id,))
+			for row in self.cursor:
+				url = models.Url(row[1], row[2], row[3], row[0])
+				break
+			else:
+				return None, False
+			self.connector.commit()
+			return url, True
+
+		except psycopg2.Error as err:
+			return None, False
 
 	def delete_url(self, url_id: str) -> Tuple[models.Url, bool]:
 		try:

@@ -81,6 +81,26 @@ def generate_shortened_url():
 	return json.dumps(result)
 
 
+@app.route('/original-url', methods=['GET'])
+def get_original_url():
+	data = request.args
+	logger.info(f"[original-url] {data}")
+	shortened_url = data.get("shortenedURL", "")
+	if not shortened_url:
+		return abort(400, "Missing fields")
+
+	url_id = short_url_to_id(shortened_url)
+
+	url, ok = postgresqlclient.c.get_url_by_id(url_id)
+	if not ok:
+		return abort(500, "Unable to find original URL")
+
+	result = {
+		"originalURL": url.original_url,
+	}
+	return json.dumps(result)
+
+
 def id_to_short_url(deci):
 	s = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 	hash_str = ''
@@ -88,3 +108,16 @@ def id_to_short_url(deci):
 		hash_str = s[deci % 62] + hash_str
 		deci //= 62
 	return hash_str
+
+
+def short_url_to_id(short_url):
+	id = 0
+	for i in short_url:
+		val_i = ord(i)
+		if ord('a') <= val_i <= ord('z'):
+			id = id * 62 + val_i - ord('a')
+		elif ord('A') <= val_i <= ord('Z'):
+			id = id * 62 + val_i - ord('A') + 26
+		else:
+			id = id * 62 + val_i - ord('0') + 52
+	return id
