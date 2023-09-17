@@ -18,7 +18,7 @@ const Login = () => {
     console.log(values.username);
     console.log(values.password);
 
-		const username = values.username;
+    const username = values.username;
     const password = values.password;
 
     try {
@@ -46,6 +46,7 @@ const Login = () => {
 
   return (
     <div className="login">
+      <img src="/logo-black.png" className="login-logo" />
       <div>
         {err === '' ? (
           <p></p>

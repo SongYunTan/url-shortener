@@ -1,16 +1,17 @@
 .navBar {
-  height: 7%;
+  height: 8%;
   background-color: #3875f6;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding-top: 1%;
   padding-left: 7%;
   padding-right: 7%;
 }
 
 .navBar-logo {
-  max-height: 90%;
+  max-height: 80%;
 }
 
 .login-button,

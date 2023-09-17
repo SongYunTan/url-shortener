@@ -4,6 +4,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: #e1dffb;
+}
+
+.signup-logo {
+  max-height: 20%;
+  margin-bottom: 2%;
 }
 
 .signup-form {
@@ -16,6 +22,7 @@
 
 .signup-form-button {
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .failed-signup {

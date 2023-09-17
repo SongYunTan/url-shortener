@@ -39,6 +39,7 @@ const Signup = () => {
 
   return (
     <div className="signup">
+      <img src="/logo-black.png" className="signup-logo" />
       <div>
         {err !== '' && (
           <p className="failed-signup">

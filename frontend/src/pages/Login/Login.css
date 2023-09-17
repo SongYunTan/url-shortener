@@ -4,6 +4,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: #e1dffb;
+}
+
+.login-logo {
+  max-height: 20%;
+  margin-bottom: 2%;
 }
 
 .login-form {
@@ -23,6 +29,7 @@
 
 .login-form-button {
   width: 100%;
+  margin-bottom: 10px;
 }
 
 .failed-login {

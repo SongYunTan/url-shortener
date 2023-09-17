@@ -1,8 +1,11 @@
+import React, { useState } from 'react';
 import { Row, Button, Input, Form } from 'antd';
 import DeleteIcon from './DeleteIcon';
 import axios from 'axios';
 
 const URLForm = ({ data, setData }) => {
+  const [shortenedURL, setShortenedURL] = useState('');
+
   const handleGenerateURL = async (values) => {
     console.log(values.originalURL);
     const originalURL = values.originalURL;
@@ -21,6 +24,7 @@ const URLForm = ({ data, setData }) => {
         )
         .then((response) => {
           console.log(JSON.stringify(response.data, null, 4));
+          setShortenedURL(response.data['shortenedURL']);
           if (response.data['exists'] === false) {
             setData([
               ...data,
@@ -57,6 +61,11 @@ const URLForm = ({ data, setData }) => {
         <Button type="primary" htmlType="submit">
           Generate Baby URL
         </Button>
+      </Row>
+      <Row>
+        {shortenedURL !== '' && (
+          <p>Your new URL is {window.location.host + '/' + shortenedURL}</p>
+        )}
       </Row>
     </Form>
   );

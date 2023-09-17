@@ -31,6 +31,7 @@ const URLTable = ({ data, setData }) => {
   }, []);
 
   const getSavedURLs = async (userID) => {
+    const host = window.location.host + '/';
     try {
       await axios
         .get('http://127.0.0.1:5000/saved-urls', {
@@ -47,7 +48,7 @@ const URLTable = ({ data, setData }) => {
               return {
                 key: url['id'],
                 originalURL: url['originalURL'],
-                babyURL: url['shortenedURL'],
+                babyURL: host + url['shortenedURL'],
                 delete: (
                   <DeleteIcon urlID={url['id']} data={data} setData={setData} />
                 ),
@@ -60,7 +61,7 @@ const URLTable = ({ data, setData }) => {
     }
   };
 
-  return <Table dataSource={data} columns={columns} />;
+  return <Table dataSource={data} columns={columns} bordered />;
 };
 
 export default URLTable;

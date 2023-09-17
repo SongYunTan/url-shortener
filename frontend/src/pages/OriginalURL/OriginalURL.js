@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import './OriginalURL.css';
 
 const OriginalURL = () => {
   const { shortenedURL } = useParams();
   const [err, setErr] = useState('');
+  const host = window.location.host + '/';
 
   useEffect(() => {
     console.log(shortenedURL);
@@ -35,10 +37,12 @@ const OriginalURL = () => {
 
   return (
     <div className="originalURL">
+      <img src="/logo-black.png" className="originalURL-logo" />
       {err !== '' && (
         <h2>
-          {shortenedURL} is not a valid Baby URL. Proceed <a href="/">here</a>{' '}
-          to generate your Baby URL now!
+          {host + shortenedURL} is not a valid Baby URL.
+          <br></br>
+          Proceed <a href="/">here</a> to generate your Baby URL now!
         </h2>
       )}
     </div>
