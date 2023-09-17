@@ -21,6 +21,10 @@ class PostgreSQLClient:
 		self.prepared_statements = {}
 		self.prepared_statements["add_user"] = "INSERT INTO users (username, salt, passhash) VALUES (%s, %s, %s)"
 		self.prepared_statements["get_user_by_username"] = "SELECT * FROM users WHERE username = %s"
+		self.prepared_statements["add_url"] = "INSERT INTO urls (user_id, original_url, shortened_url) VALUES (%s, %s, %s)"
+		self.prepared_statements["get_shortened_url"] = "SELECT * FROM urls WHERE user_id = %s AND original_url = %s AND deleted_at IS NULL"
+		self.prepared_statements["get_saved_urls_by_id"] = "SELECT * FROM urls WHERE user_id = %s AND deleted_at IS NULL"
+		self.prepared_statements["get_max_url_id"] = "SELECT MAX(Id) FROM urls"
 
 	def add_user(self, user: models.User) -> Tuple[int, bool]:
 		try:
@@ -45,6 +49,52 @@ class PostgreSQLClient:
 				return None, False
 			self.connector.commit()
 			return user, True
+
+		except psycopg2.Error as err:
+			return None, False
+
+	def add_url(self, user_id: str, original_url: str, shortened_url: str) -> bool:
+		try:
+			self.cursor.execute(self.prepared_statements["add_url"], (user_id, original_url, shortened_url))
+			self.connector.commit()
+			return True
+
+		except psycopg2.Error as err:
+			return False
+
+	def get_shortened_url(self, user_id: str, original_url: str) -> Tuple[models.Url, bool]:
+		try:
+			self.cursor.execute(self.prepared_statements["get_shortened_url"], (user_id, original_url))
+			for row in self.cursor:
+				url = models.Url(row[1], row[2], row[3])
+				break
+			else:
+				return None, False
+			self.connector.commit()
+			return url, True
+
+		except psycopg2.Error as err:
+			return None, False
+
+	def get_saved_urls_by_id(self, user_id: str):
+		try:
+			self.cursor.execute(self.prepared_statements["get_saved_urls_by_id"], (user_id,))
+			urls = []
+			for row in self.cursor:
+				urls.append((row[2], row[3]))
+			self.connector.commit()
+			return urls, True
+
+		except psycopg2.Error as err:
+			return None, False
+
+	def get_max_url_id(self):
+		try:
+			self.cursor.execute(self.prepared_statements["get_max_url_id"])
+			for row in self.cursor:
+				url_id = row[0]
+			self.connector.commit()
+			return (url_id, True) if url_id else (0, True)
 
 		except psycopg2.Error as err:
 			return None, False
