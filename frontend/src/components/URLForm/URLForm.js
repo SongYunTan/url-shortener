@@ -16,7 +16,7 @@ const URLForm = ({ data, setData }) => {
     try {
       await axios
         .post(
-          'http://127.0.0.1:5000/shortened-url',
+          'https://git.heroku.com/baby-url-backend.git/shortened-url',
           { userID, originalURL },
           {
             headers: {
