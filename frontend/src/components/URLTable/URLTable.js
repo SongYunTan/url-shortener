@@ -51,7 +51,12 @@ const URLTable = ({ data, setData }) => {
                 originalURL: url['originalURL'],
                 babyURL: <a href={link}>{link}</a>,
                 delete: (
-                  <DeleteIcon urlID={url['id']} data={data} setData={setData} />
+                  <DeleteIcon
+                    urlID={url['id']}
+                    key={data}
+                    data={data}
+                    setData={setData}
+                  />
                 ),
               };
             })

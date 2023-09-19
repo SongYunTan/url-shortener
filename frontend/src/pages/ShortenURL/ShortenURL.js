@@ -12,7 +12,7 @@ const ShortenURL = () => {
       <NavBar />
       <div className="shortenURL-container">
         <URLForm data={data} setData={setData} />
-        <URLTable data={data} setData={setData} />
+        <URLTable key={data} data={data} setData={setData} />
       </div>
     </div>
   );
