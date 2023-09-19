@@ -7,9 +7,25 @@
   background: #e1dffb;
 }
 
-.signup-logo {
-  max-height: 20%;
-  margin-bottom: 2%;
+@media only screen and (max-width: 600px) {
+  .signup-logo {
+    width: 400px;
+    margin-bottom: 2%;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .signup-logo {
+    width: 500px;
+    margin-bottom: 2%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .signup-logo {
+    width: 50%;
+    margin-bottom: 2%;
+  }
 }
 
 .signup-form {

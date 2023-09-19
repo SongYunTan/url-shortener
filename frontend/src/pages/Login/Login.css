@@ -7,9 +7,25 @@
   background: #e1dffb;
 }
 
-.login-logo {
-  max-height: 20%;
-  margin-bottom: 2%;
+@media only screen and (max-width: 600px) {
+  .login-logo {
+    width: 400px;
+    margin-bottom: 2%;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .login-logo {
+    width: 500px;
+    margin-bottom: 2%;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .login-logo {
+    width: 50%;
+    margin-bottom: 2%;
+  }
 }
 
 .login-form {

@@ -75,7 +75,7 @@ const URLForm = ({ data, setData }) => {
           />
         </Form.Item>
 
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" className="shortenURL-button">
           Generate Baby URL
         </Button>
       </Row>
