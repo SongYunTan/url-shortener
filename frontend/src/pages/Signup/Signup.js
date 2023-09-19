@@ -19,7 +19,7 @@ const Signup = () => {
     try {
       await axios
         .post(
-          'https://git.heroku.com/baby-url-backend.git/signup',
+          'https://baby-url-backend-7b27c2fd1375.herokuapp.com/signup',
           { username, password },
           {
             headers: {

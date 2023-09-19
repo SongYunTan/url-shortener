@@ -34,7 +34,7 @@ const URLTable = ({ data, setData }) => {
     const host = window.location.host + '/';
     try {
       await axios
-        .get('https://git.heroku.com/baby-url-backend.git/saved-urls', {
+        .get('https://baby-url-backend-7b27c2fd1375.herokuapp.com/saved-urls', {
           params: { userID },
           headers: {
             'Content-Type': 'application/json',

@@ -18,7 +18,7 @@ const OriginalURL = () => {
   const getOriginalURL = async () => {
     try {
       await axios
-        .get('https://git.heroku.com/baby-url-backend.git/original-url', {
+        .get('https://baby-url-backend-7b27c2fd1375.herokuapp.com/original-url', {
           params: { shortenedURL },
           headers: {
             'Content-Type': 'application/json',

@@ -7,7 +7,7 @@ const DeleteIcon = ({ urlID, data, setData }) => {
     try {
       await axios
         .post(
-          'https://git.heroku.com/baby-url-backend.git/delete-url',
+          'https://baby-url-backend-7b27c2fd1375.herokuapp.com/delete-url',
           { urlID },
           {
             headers: {
