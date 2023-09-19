@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
-import DeleteIcon from './DeleteIcon';
+import DeleteIcon from '../DeleteIcon/DeleteIcon';
 import axios from 'axios';
 
 const columns = [
@@ -45,10 +45,11 @@ const URLTable = ({ data, setData }) => {
           console.log(JSON.stringify(response.data, null, 4));
           setData(
             response.data['urls'].map((url) => {
+              const link = 'http://' + host + url['shortenedURL'];
               return {
                 key: url['id'],
                 originalURL: url['originalURL'],
-                babyURL: host + url['shortenedURL'],
+                babyURL: <a href={link}>{link}</a>,
                 delete: (
                   <DeleteIcon urlID={url['id']} data={data} setData={setData} />
                 ),
@@ -61,7 +62,16 @@ const URLTable = ({ data, setData }) => {
     }
   };
 
-  return <Table dataSource={data} columns={columns} bordered />;
+  return (
+    <Table
+      dataSource={data}
+      columns={columns}
+      pagination={{
+        pageSize: 5,
+      }}
+      bordered
+    />
+  );
 };
 
 export default URLTable;

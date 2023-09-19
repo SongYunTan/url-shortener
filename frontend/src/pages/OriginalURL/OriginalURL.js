@@ -39,11 +39,11 @@ const OriginalURL = () => {
     <div className="originalURL">
       <img src="/logo-black.png" className="originalURL-logo" />
       {err !== '' && (
-        <h2>
-          {host + shortenedURL} is not a valid Baby URL.
-          <br></br>
+        <div className="originalURL-text">
+          <b>{'http://' + host + shortenedURL}</b> is not a valid Baby URL.
+          <br />
           Proceed <a href="/">here</a> to generate your Baby URL now!
-        </h2>
+        </div>
       )}
     </div>
   );

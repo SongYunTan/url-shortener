@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import URLTable from '../../components/URLTable';
-import URLForm from '../../components/URLForm';
+import URLTable from '../../components/URLTable/URLTable';
+import URLForm from '../../components/URLForm/URLForm';
 import NavBar from '../../components/NavBar/NavBar';
 import './ShortenURL.css';
 

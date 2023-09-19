@@ -87,7 +87,7 @@ const Login = () => {
           >
             LOG IN
           </Button>
-          New to BabyURL?
+          New to BabyURL?{' '}
           <Link id="signupLink" to="/signup">
             Sign Up
           </Link>

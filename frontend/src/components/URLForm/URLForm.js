@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Row, Button, Input, Form } from 'antd';
-import DeleteIcon from './DeleteIcon';
+import { Row, Button, Input, Form, Select } from 'antd';
+import DeleteIcon from '../DeleteIcon/DeleteIcon';
 import axios from 'axios';
+import './URLForm.css';
+
+const host = window.location.host + '/';
 
 const URLForm = ({ data, setData }) => {
   const [shortenedURL, setShortenedURL] = useState('');
@@ -26,12 +29,13 @@ const URLForm = ({ data, setData }) => {
           console.log(JSON.stringify(response.data, null, 4));
           setShortenedURL(response.data['shortenedURL']);
           if (response.data['exists'] === false) {
+            const link = 'http://' + host + response.data['shortenedURL'];
             setData([
               ...data,
               {
                 key: response.data['id'],
                 originalURL: originalURL,
-                babyURL: response.data['shortenedURL'],
+                babyURL: <a href={link}>{link}</a>,
                 delete: (
                   <DeleteIcon
                     urlID={response.data['id']}
@@ -48,6 +52,14 @@ const URLForm = ({ data, setData }) => {
     }
   };
 
+  const { Option } = Select;
+  const selectBefore = (
+    <Select defaultValue="http://">
+      <Option value="http://">http://</Option>
+      <Option value="https://">https://</Option>
+    </Select>
+  );
+
   return (
     <Form name="basic" onFinish={handleGenerateURL} className="shortenURL-form">
       <Row>
@@ -55,7 +67,12 @@ const URLForm = ({ data, setData }) => {
           name="originalURL"
           rules={[{ required: true, message: 'Please input URL!' }]}
         >
-          <Input placeholder="URL" type="text" className="shortenURL-input" />
+          <Input
+            placeholder="URL"
+            type="text"
+            addonBefore={selectBefore}
+            className="shortenURL-input"
+          />
         </Form.Item>
 
         <Button type="primary" htmlType="submit">
@@ -64,7 +81,12 @@ const URLForm = ({ data, setData }) => {
       </Row>
       <Row>
         {shortenedURL !== '' && (
-          <p>Your new URL is {window.location.host + '/' + shortenedURL}</p>
+          <p>
+            Your new URL is{' '}
+            <a href={'http://' + host + shortenedURL}>
+              {'http://' + host + shortenedURL}
+            </a>
+          </p>
         )}
       </Row>
     </Form>
