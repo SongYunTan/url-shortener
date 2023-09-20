@@ -1,7 +1,8 @@
 # URL Shortener
 
-Frontend is hosted on https://baby-url-7d4727a2b0fa.herokuapp.com/login
-Backend is hosted on https://baby-url-backend-7b27c2fd1375.herokuapp.com/
+Frontend is hosted on https://baby-url-7d4727a2b0fa.herokuapp.com/login  \
+Backend is hosted on https://baby-url-backend-7b27c2fd1375.herokuapp.com/  \
+However, deploying the database on Heroku is not part of the free plan and thus the database has not been deployed.
 
 ## Run this app locally
 
